@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="style.css" />
-    <title>Client</title>
+    <title>RemoteAccesTool</title>
   </head>
 
   <body>
@@ -18,40 +20,129 @@
     </div>
 
     <div class="codeEditor">
-      <div class="block windowTools"></div>
+      <div class="toolbarTop">
+        <button class="toolBtn" title="Run">
+          <img src="./res/run.svg" alt="Run" />
+        </button>
 
-      <div class="block toolbarTop"></div>
+        <button class="toolBtn" title="Stop">
+          <img src="./res/stop.svg" alt="Stop" />
+        </button>
+
+        <button class="toolBtn" title="Console">
+          <img src="./res/consoleWindow.svg" alt="Console" />
+        </button>
+
+        <div class="toolSeparator"></div>
+
+        <button class="toolBtn" title="Save">
+          <img src="./res/save.svg" alt="Save" />
+        </button>
+
+        <button class="toolBtn" title="Refresh">
+          <img src="./res/refresh.svg" alt="Refresh" />
+        </button>
+
+        <button class="toolBtn" title="Create file">
+          <img src="./res/createFile.svg" alt="Create file" />
+        </button>
+
+        <button class="toolBtn" title="Create folder">
+          <img src="./res/createFolder.svg" alt="Create folder" />
+        </button>
+
+        <button class="toolBtn danger" title="Delete">
+          <img src="./res/delete.svg" alt="Delete" />
+        </button>
+
+        <div class="toolSeparator"></div>
+
+        <button class="toolBtn" title="Upload">
+          <img src="./res/upload.svg" alt="Upload" />
+        </button>
+
+        <button class="toolBtn" title="Download">
+          <img src="./res/download.svg" alt="Download" />
+        </button>
+
+        <button class="toolBtn" title="More">
+          <img src="./res/more.svg" alt="More" />
+        </button>
+      </div>
 
       <div class="mainArea">
-        <div class="block toolbarSide"></div>
+        <div class="toolbarSide">
+          <button class="sideButton active" title="Files">
+            <img src="./res/fileIcon.svg" alt="Files" />
+          </button>
 
-        <div class="block fileExplorer">
+          <button class="sideButton" title="Search">
+            <img src="./res/search.svg" alt="Search" />
+          </button>
+
+          <button class="sideButton" title="Dashboard">
+            <img src="./res/dashboard.svg" alt="Dashboard" />
+          </button>
+
+          <button class="sideButton" title="Database">
+            <img src="./res/database.svg" alt="Database" />
+          </button>
+
+          <button class="sideButton" title="Terminal">
+            <img src="./res/terminal.svg" alt="Terminal" />
+          </button>
+
+          <button class="sideButton" title="History">
+            <img src="./res/history.svg" alt="History" />
+          </button>
+
+          <button class="sideButton" title="Speed test">
+            <img src="./res/speedTest.svg" alt="Speed test" />
+          </button>
+
+          <button class="sideButton" title="Server">
+            <img src="./res/server.svg" alt="Server" />
+          </button>
+
+          <div class="sideSpacer"></div>
+
+          <button class="sideButton connectionStatus" title="Connected">
+            <img src="./res/connected.svg" alt="Connected" />
+          </button>
+
+          <button class="sideButton" title="Account">
+            <img src="./res/account.svg" alt="Account" />
+          </button>
+
+          <button class="sideButton" title="Settings">
+            <img src="./res/settings.svg" alt="Settings" />
+          </button>
+        </div>
+
+        <div class="fileExplorer">
           <div class="folderHeader">
             <div class="folderName">RemoteAccesTool</div>
             <img src="./res/arrowRight.svg" onclick="openAllFolders()" />
           </div>
-          <line></line>
+
           <contents></contents>
         </div>
 
         <div class="editorArea">
-          <div class="block openedFiles">
-            <!-- <div class="file selectedFile">
-              <div class="filename">main.cpp</div>
-              <img src="./res/reject.svg" />
-            </div> -->
+          <div class="openedFiles">
+            <!-- otwarte pliki -->
           </div>
 
-          <div class="block code">
+          <div class="code">
             <div id="monacoEditor"></div>
           </div>
         </div>
       </div>
     </div>
-  </body>
 
-  <script src="./src/contextMenu.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs/loader.min.js"></script>
-  <script src="./src/editor.js"></script>
-  <script src="./src/websocket.js"></script>
+    <script src="./src/contextMenu.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs/loader.min.js"></script>
+    <script src="./src/editor.js"></script>
+    <script src="./src/websocket.js"></script>
+  </body>
 </html>

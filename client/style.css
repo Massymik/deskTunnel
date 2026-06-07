@@ -1,0 +1,293 @@
+html,
+body {
+  font-family: monospace;
+  user-select: none;
+  overflow: hidden;
+  min-height: 100vh;
+  margin: 0;
+  background: #111827;
+  color: #f9fafb;
+  cursor:
+    url("./res/cursorPointer.svg") 0 0,
+    auto;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #555358 #111827;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111827;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555358;
+  border-radius: 10px;
+  border: 2px solid #111827;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b6870;
+}
+
+::-webkit-scrollbar-corner {
+  background: #111827;
+}
+
+#contextMenu {
+  position: fixed;
+  display: none;
+  left: 0;
+  top: 0;
+  min-width: 160px;
+  background: #5454546f;
+  border: 2px solid #555358;
+  border-radius: 7px;
+  padding: 6px;
+  z-index: 999999;
+}
+
+#contextMenu div {
+  padding: 9px 12px;
+  color: #afafaf;
+  border-radius: 7px;
+}
+
+#contextMenu div:hover {
+  background: #374151;
+}
+
+.block {
+  display: block;
+  border: 3px solid #555358;
+  background: #5454546f;
+  box-sizing: border-box;
+}
+
+.windowTools {
+  width: 100vw;
+  height: 3vh;
+  margin: 0 0 -3px 0;
+}
+
+.toolbarTop {
+  width: 100vw;
+  height: 4vh;
+  margin: 0 0 -3px 0;
+}
+
+.mainArea {
+  display: flex;
+  align-items: flex-start;
+  width: 100vw;
+  height: 93vh;
+}
+
+.toolbarSide {
+  width: 3vw;
+  height: 93vh;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.fileExplorer {
+  min-width: 13vw;
+  height: 93vh;
+  margin: 0 0 0 -3px;
+  flex-shrink: 0;
+}
+
+.editorArea {
+  display: flex;
+  flex-direction: column;
+  margin-left: -3px;
+  flex: 1;
+  min-width: 0;
+  height: 93vh;
+}
+
+.openedFiles {
+  width: 100%;
+  height: 4vh;
+  margin: 0 0 -3px 0;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.code {
+  position: relative;
+  height: 89.3vh;
+  margin: 0;
+  overflow: auto;
+  outline: none;
+  white-space: pre;
+  caret-color: #f9fafb;
+  cursor: text;
+  font-family: monospace;
+  font-size: small;
+  line-height: 15px;
+}
+
+img {
+  filter: invert(0.8);
+}
+
+.openedFiles .file {
+  font-family: "Inter";
+  color: #b9bdc1;
+  margin-left: -4px;
+  font-size: 14px;
+  padding: 6px;
+  padding-top: 6px;
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.selectedFile {
+  background: #474778;
+}
+
+.notSelectedFile {
+  background: #555358;
+}
+
+.openedFiles img {
+  height: 15px;
+  margin-top: 1px;
+  margin-left: 5px;
+}
+
+.folderName {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: -3px;
+  margin-top: -3px;
+  color: #b9bdc1;
+  font-size: px;
+  font-weight: 600;
+}
+
+.line {
+  font-size: small;
+  line-height: 15px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.text {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  min-width: calc(100% - 42px);
+  min-height: 100%;
+  margin-left: 10px;
+  color: #e5e7eb;
+  white-space: pre;
+  outline: none;
+  font-family: monospace;
+  font-size: small;
+  line-height: 15px;
+  user-select: text;
+  cursor: text;
+}
+
+.currentLine {
+  background-color: #474778;
+}
+
+.lineNumberContainer {
+  margin-top: -30px;
+}
+
+.lineNr {
+  border-collapse: collapse;
+  border-right: 2px solid #555358;
+  min-width: 20px;
+  text-align: right;
+  padding-right: 3px;
+  margin-left: 3px;
+  color: #858388;
+  display: inline-block;
+}
+
+file,
+folder {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+folder {
+  position: relative;
+  color: #e1e1e1;
+  padding-left: 7px;
+  padding-right: 25px;
+}
+
+file {
+  color: #a1a4a9;
+  padding-left: 7px;
+}
+
+.folderLabel {
+  display: inline-block;
+}
+
+folder img {
+  height: 15px;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+
+line{
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #555358;
+}
+
+contents{
+  display: block;
+  height: calc(93vh - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
+
+.folderHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  gap: 6px;
+  height: 40px;
+  width: 100%;
+}
+
+.folderHeader img {
+  position: absolute;
+  right: 15px;
+  height: 16px;
+}
+
+.folderName {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  color: #b9bdc1;
+  font-size: 17px;
+  font-weight: 600;
+}

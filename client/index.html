@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pl-PL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./src/websocket.js"></script>
+    <title>Client</title>
+  </head>
+
+  <body>
+    <div id="contextMenu">
+      <div>Kopiuj nazwę</div>
+      <div>Odśwież</div>
+    </div>
+
+    <div class="codeEditor">
+      <div class="block windowTools"></div>
+
+      <div class="block toolbarTop"></div>
+
+      <div class="mainArea">
+        <div class="block toolbarSide"></div>
+
+        <div class="block fileExplorer">
+          <div class="folderHeader">
+            <div class="folderName">RemoteAccesTool</div>
+            <img src="./res/arrowRight.svg" onclick="openAllFolders()" />
+          </div>
+          <line></line>
+          <contents></contents>
+        </div>
+
+        <div class="editorArea">
+          <div class="block openedFiles">
+            <div class="file selectedFile">
+              <div class="filename">main.cpp</div>
+              <img src="./res/reject.svg" />
+            </div>
+
+            <div class="file notSelectedFile">
+              <div class="filename">handleWebRequests.h</div>
+              <img src="./res/reject.svg" />
+            </div>
+
+            <div class="file notSelectedFile">
+              <div class="filename">env.h</div>
+              <img src="./res/reject.svg" />
+            </div>
+
+            <div class="file notSelectedFile">
+              <div class="filename">style.css</div>
+              <img src="./res/reject.svg" />
+            </div>
+          </div>
+
+          <div class="block code">
+            <div class="lineNumberContainer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="./src/contextMenu.js"></script>
+  <script src="./src/script.js"></script>
+</html>

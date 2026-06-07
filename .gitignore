@@ -1,0 +1,4 @@
+config.cnf
+.vscode
+.clang-format
+server/remote/

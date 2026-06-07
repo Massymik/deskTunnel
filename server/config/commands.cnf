@@ -1,0 +1,6 @@
+mysql start=wt -w last new-tab --title "MySQL Start" cmd /k "net start mysql"
+mysql stop=wt -w last new-tab --title "MySQL Stop" cmd /k "net stop mysql"
+mysql status=wt -w last new-tab --title "MySQL Status" cmd /k "sc query mysql"
+php start=wt -w last new-tab --title "PHP Server" cmd /k "D:\Programy\xampp\php\php.exe -S localhost:8080 -t D:\Dev\VS_code\cpp\remoteAcces\client"
+php stop=wt -w last new-tab --title "PHP Stop" cmd /k "taskkill /IM php.exe /F"
+hide= 

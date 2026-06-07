@@ -8,7 +8,42 @@
 #include "env.h"
 #include "commands.h"
 
-inline void printLogo() {
+static std::string base64Encode(const std::string &input)
+{
+  static const char table[] =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+  std::string output;
+  int val = 0;
+  int valb = -6;
+
+  for (unsigned char c : input)
+  {
+    val = (val << 8) + c;
+    valb += 8;
+
+    while (valb >= 0)
+    {
+      output.push_back(table[(val >> valb) & 0x3F]);
+      valb -= 6;
+    }
+  }
+
+  if (valb > -6)
+  {
+    output.push_back(table[((val << 8) >> (valb + 8)) & 0x3F]);
+  }
+
+  while (output.size() % 4)
+  {
+    output.push_back('=');
+  }
+
+  return output;
+}
+
+inline void printLogo()
+{
   std::cout << R"(     ____                      _          _                      
     |  _ \ ___ _ __ ___   ___ | |_ ___   / \   ___ ___ ___  ___ 
     | |_) / _ \ '_ ` _ \ / _ \| __/ _ \ / _ \ / __/ __/ _ \/ __|
@@ -18,7 +53,8 @@ inline void printLogo() {
 }
 
 std::atomic<bool> animationRunning = true;
-void dotsAnimation(std::string text) {
+void dotsAnimation(std::string text)
+{
   const char *frames[] = {
       "[          ]", "[░         ]", "[▒░        ]", "[▓▒░       ]", "[█▓▒░      ]", "[██▓▒░     ]", "[░██▓▒░    ]",
       "[ ░██▓▒░   ]", "[  ░██▓▒░  ]", "[   ░██▓▒░ ]", "[    ░██▓▒░]", "[     ░██▓▒]", "[      ░██▓]", "[       ░██]",
@@ -29,7 +65,8 @@ void dotsAnimation(std::string text) {
   int frameCount = sizeof(frames) / sizeof(frames[0]);
   int animLength = 750;
 
-  while (animationRunning) {
+  while (animationRunning)
+  {
     std::cout << "\r  " << text << " " << frames[i];
     i = (i + 1) % frameCount;
     std::this_thread::sleep_for(std::chrono::milliseconds(animLength / frameCount));
@@ -46,13 +83,16 @@ void setCommandLineString(std::string command) { commandLineString = command; }
 std::string getSuggestion() { return suggestion; }
 void setSuggestion(std::string command) { suggestion = command; }
 
-void removeCommandLineChar() {
-  if (!commandLineString.empty()) {
+void removeCommandLineChar()
+{
+  if (!commandLineString.empty())
+  {
     commandLineString.pop_back();
   }
 }
 
-void uiAnimation() {
+void uiAnimation()
+{
   const char *frames[] = {"   .   ", "   o   ", "  (o)  ", " ((o)) ", "(((o)))", " ((o)) ", "  (o)  ", "   o   "};
   int frameCount = sizeof(frames) / sizeof(frames[0]);
   int i = 0;
@@ -60,25 +100,31 @@ void uiAnimation() {
   int promptTick = 0;
   bool showPrompt = true;
 
-  while (true) {
+  while (true)
+  {
     printf("\r  Server running %s        ", frames[i]);
     printf("\n\n");
     printf("\r  " MAGENTA "[SERVER]" RESET CYAN "[INFO]" RESET " type in command.        \n");
 
     printf("\r\033[2K");
-    if (showPrompt) {
+    if (showPrompt)
+    {
       printf("  > %s" GRAY "%s" RESET, commandLineString.c_str(), suggestion.c_str());
-    } else {
+    }
+    else
+    {
       printf("    %s" GRAY "%s" RESET, commandLineString.c_str(), suggestion.c_str());
     }
 
     serverTick++;
     promptTick++;
-    if (serverTick >= 6) {
+    if (serverTick >= 6)
+    {
       i = (i + 1) % frameCount;
       serverTick = 0;
     }
-    if (promptTick >= 8) {
+    if (promptTick >= 8)
+    {
       showPrompt = !showPrompt;
       promptTick = 0;
     }
@@ -89,69 +135,88 @@ void uiAnimation() {
   }
 }
 
-int exitError(std::string message) {
+int exitError(std::string message)
+{
   std::cout << "\033[?25h" << std::flush;
   printf(RED "\n  [ERROR]" RESET " %s\n", message.c_str());
   return -1;
 }
 
-void handleTyping(Environment &env) {
-  while (true) {
-    if (_kbhit()) {
+void handleTyping(Environment &env)
+{
+  while (true)
+  {
+    if (_kbhit())
+    {
       char c = _getch();
-      if (c == '\t') {
+      if (c == '\t')
+      {
         // tab
         std::string userInput = getCommandLineString();
         setCommandLineString(userInput + getSuggestion());
         setSuggestion("");
-      } else if (c == 27) {
+      }
+      else if (c == 27)
+      {
         // esc
         setCommandLineString("");
         setSuggestion("");
-      } else if (c == 8) {
+      }
+      else if (c == 8)
+      {
         // backspace
         removeCommandLineChar();
         std::string userInput = getCommandLineString();
         std::vector<std::string> suggestions = env.getSuggestions(userInput);
-        if (userInput.empty() || suggestions.empty()) {
+        if (userInput.empty() || suggestions.empty())
+        {
           setSuggestion("");
           continue;
         }
 
         setSuggestion(suggestions[0].substr(userInput.length()));
-      } else if (c == 13) {
+      }
+      else if (c == 13)
+      {
         std::string userInput = getCommandLineString();
-        if (!commandExists(env, userInput)) {
+        if (!commandExists(env, userInput))
+        {
           setCommandLineString(RED "[ERROR]" RESET "(command) cannot find command: " + userInput);
           continue;
         }
         executeCommand(env, userInput);
         setCommandLineString("");
-      } else if (c == 0 || c == 224) {
+      }
+      else if (c == 0 || c == 224)
+      {
         int special = _getch();
 
-        switch (special) {
-          case 72:
-            // up
-            break;
-          case 80:
-            // down
-            break;
-          case 75:
-            // left
-            break;
-          case 77:
-            // right
-            break;
-          case 83:
-            // delete
-            break;
+        switch (special)
+        {
+        case 72:
+          // up
+          break;
+        case 80:
+          // down
+          break;
+        case 75:
+          // left
+          break;
+        case 77:
+          // right
+          break;
+        case 83:
+          // delete
+          break;
         }
-      } else if (c >= 97 && c <= 122 || c == 32) {
+      }
+      else if (c >= 97 && c <= 122 || c == 32)
+      {
         appendCommandLine(c);
         std::string userInput = getCommandLineString();
         std::vector<std::string> suggestions = env.getSuggestions(userInput);
-        if (suggestions.empty()) {
+        if (suggestions.empty())
+        {
           setSuggestion("");
           continue;
         }

@@ -23,6 +23,7 @@
 #include "./src/textTools.h"
 #include "./src/webSocketHandler.h"
 #include "./src/admin.h"
+#include "./src/globals.h"
 #include "./database/db.h"
 #include "./database/auth.h"
 
@@ -61,7 +62,6 @@ int main()
 
   animationRunning = true;
   std::thread animThread2(dotsAnimation, BLUE "[INIT]" RESET " Loading config");
-  Environment env;
 
   if (!env.loadConfig())
   {
@@ -108,7 +108,7 @@ int main()
       }
     } });
 
-  std::thread commandInput([&env]()
+  std::thread commandInput([]()
                            { handleTyping(env); });
 
   mg_log_set(MG_LL_ERROR);

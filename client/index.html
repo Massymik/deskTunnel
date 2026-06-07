@@ -8,7 +8,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <script src="./src/websocket.js"></script>
     <title>Client</title>
   </head>
 
@@ -37,29 +36,14 @@
 
         <div class="editorArea">
           <div class="block openedFiles">
-            <div class="file selectedFile">
+            <!-- <div class="file selectedFile">
               <div class="filename">main.cpp</div>
               <img src="./res/reject.svg" />
-            </div>
-
-            <div class="file notSelectedFile">
-              <div class="filename">handleWebRequests.h</div>
-              <img src="./res/reject.svg" />
-            </div>
-
-            <div class="file notSelectedFile">
-              <div class="filename">env.h</div>
-              <img src="./res/reject.svg" />
-            </div>
-
-            <div class="file notSelectedFile">
-              <div class="filename">style.css</div>
-              <img src="./res/reject.svg" />
-            </div>
+            </div> -->
           </div>
 
           <div class="block code">
-            <div class="lineNumberContainer"></div>
+            <div id="monacoEditor"></div>
           </div>
         </div>
       </div>
@@ -67,5 +51,7 @@
   </body>
 
   <script src="./src/contextMenu.js"></script>
-  <script src="./src/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs/loader.min.js"></script>
+  <script src="./src/editor.js"></script>
+  <script src="./src/websocket.js"></script>
 </html>

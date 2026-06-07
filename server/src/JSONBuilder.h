@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "./globals.h"
 
 static std::string escapeJSON(const std::string &text)
 {
@@ -64,8 +65,11 @@ static std::string createDirectoryJSON(const std::filesystem::path &directory)
     }
     else
     {
+      std::filesystem::path relativePath =
+          std::filesystem::relative(entry.path(), (std::filesystem::path)env.config["homePath"]);
       json += "{";
       json += "\"type\":\"file\",";
+      json += "\"path\":\"" + escapeJSON(relativePath.string()) + "\",";
       json += "\"name\":\"" + escapeJSON(name) + "\"";
       json += "}";
     }

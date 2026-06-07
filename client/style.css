@@ -1,44 +1,44 @@
 html,
 body {
-  font-family: monospace;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   user-select: none;
   overflow: hidden;
   min-height: 100vh;
   margin: 0;
-  background: #111827;
-  color: #f9fafb;
+  background: #1e1e1e;
+  color: #cccccc;
   cursor:
-    url("./res/cursorPointer.svg") 0 0,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M5 3L19 14L12.8 15.1L15.9 22L13.7 23L10.5 16.2L5 20.5V3Z' fill='none' stroke='%23e5e7eb' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M10.5 16.2L13.7 23' stroke='%231e1e1e' stroke-width='3.2' stroke-linecap='round'/%3E%3Cpath d='M10.5 16.2L13.7 23' stroke='%23e5e7eb' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") 5 3,
     auto;
 }
 
 * {
+  box-sizing: border-box;
   scrollbar-width: thin;
-  scrollbar-color: #555358 #111827;
+  scrollbar-color: #424242 #1e1e1e;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #111827;
-  border-radius: 10px;
+  background: #1e1e1e;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555358;
+  background: #424242;
+  border: 3px solid #1e1e1e;
   border-radius: 10px;
-  border: 2px solid #111827;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b6870;
+  background: #4f4f4f;
 }
 
 ::-webkit-scrollbar-corner {
-  background: #111827;
+  background: #1e1e1e;
 }
 
 #contextMenu {
@@ -46,197 +46,238 @@ body {
   display: none;
   left: 0;
   top: 0;
-  min-width: 160px;
-  background: #5454546f;
-  border: 2px solid #555358;
-  border-radius: 7px;
-  padding: 6px;
+  min-width: 170px;
+  background: #252526;
+  border: 1px solid #454545;
+  border-radius: 4px;
+  padding: 4px;
   z-index: 999999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 #contextMenu div {
-  padding: 9px 12px;
-  color: #afafaf;
-  border-radius: 7px;
+  padding: 7px 12px;
+  color: #cccccc;
+  border-radius: 3px;
+  font-size: 13px;
 }
 
 #contextMenu div:hover {
-  background: #374151;
+  background: #3a3a3a;
+  color: #ffffff;
 }
 
 .block {
   display: block;
-  border: 3px solid #555358;
-  background: #5454546f;
+  border: 1px solid #2d2d30;
+  background: #1e1e1e;
   box-sizing: border-box;
 }
 
 .windowTools {
   width: 100vw;
   height: 3vh;
-  margin: 0 0 -3px 0;
+  margin: 0;
+  background: #3c3c3c;
+  border-bottom: 1px solid #2d2d30;
 }
 
 .toolbarTop {
-  width: 100vw;
+  position: absolute;
+  top: 3vh;
+  left: 48px;
+  width: 260px;
   height: 4vh;
-  margin: 0 0 -3px 0;
+  margin: 0;
+  z-index: 20;
+  background: #222222;
+  border-bottom: 1px solid #171717;
+  border-right: 1px solid #171717;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
 }
 
 .mainArea {
   display: flex;
   align-items: flex-start;
   width: 100vw;
-  height: 93vh;
+  height: 97vh;
+  background: #1e1e1e;
 }
 
 .toolbarSide {
-  width: 3vw;
-  height: 93vh;
+  width: 48px;
+  height: 97vh;
   margin: 0;
   flex-shrink: 0;
+  background: #333333;
+  border-right: 1px solid #252526;
 }
 
 .fileExplorer {
-  min-width: 13vw;
+  max-width: 45vw;
+  min-width: 260px;
+  width: 260px;
   height: 93vh;
-  margin: 0 0 0 -3px;
+  margin: 4vh 0 0 0;
   flex-shrink: 0;
+  background: #252526;
+  border-right: 1px solid #1f1f1f;
 }
 
 .editorArea {
   display: flex;
   flex-direction: column;
-  margin-left: -3px;
   flex: 1;
   min-width: 0;
-  height: 93vh;
+  height: 97vh;
+  background: #1e1e1e;
 }
 
 .openedFiles {
   width: 100%;
-  height: 4vh;
-  margin: 0 0 -3px 0;
-  padding-left: 10px;
+  height: 35px;
+  margin: 0;
+  padding-left: 0;
+  background: #202020;
+  border-bottom: 1px solid #171717;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.openedFiles .file {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: #b8b8b8;
+  height: 35px;
+  margin: 0;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  border-right: 1px solid #171717;
+  border-radius: 0;
   box-sizing: border-box;
+  vertical-align: top;
+  background: #242424;
+  transition:
+    background 120ms ease,
+    color 120ms ease;
+}
+
+.selectedFile {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  box-shadow: inset 0 2px 0 #6f6f6f;
+}
+
+.notSelectedFile {
+  background: #262626;
+  color: #8d8d8d;
+}
+
+.openedFiles .file:hover {
+  background: #2d2d2d;
+  color: #e0e0e0;
+}
+
+.openedFiles img {
+  height: 14px;
+  margin: 0;
+  opacity: 0.6;
+}
+
+.openedFiles img:hover {
+  opacity: 0.9;
 }
 
 .code {
   position: relative;
-  height: 89.3vh;
+  flex: 1;
+  height: auto;
   margin: 0;
-  overflow: auto;
+  overflow: hidden;
   outline: none;
-  white-space: pre;
-  caret-color: #f9fafb;
-  cursor: text;
-  font-family: monospace;
-  font-size: small;
-  line-height: 15px;
+  background: #1e1e1e;
+}
+
+#monacoEditor {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  height: 100%;
 }
 
 img {
   filter: invert(0.8);
 }
 
-.openedFiles .file {
-  font-family: "Inter";
-  color: #b9bdc1;
-  margin-left: -4px;
-  font-size: 14px;
-  padding: 6px;
-  padding-top: 6px;
-  margin-top: 4px;
-  display: inline-flex;
+.folderHeader {
+  position: relative;
+  display: flex;
   align-items: center;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  gap: 6px;
+  height: 35px;
+  width: 100%;
+  padding: 0 12px;
+  background: #252526;
+  border-bottom: 1px solid #1f1f1f;
 }
 
-.selectedFile {
-  background: #474778;
-}
-
-.notSelectedFile {
-  background: #555358;
-}
-
-.openedFiles img {
-  height: 15px;
-  margin-top: 1px;
-  margin-left: 5px;
+.folderHeader img {
+  position: absolute;
+  right: 12px;
+  height: 14px;
+  opacity: 0.75;
 }
 
 .folderName {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: -3px;
-  margin-top: -3px;
-  color: #b9bdc1;
-  font-size: px;
-  font-weight: 600;
-}
-
-.line {
-  font-size: small;
-  line-height: 15px;
+  width: auto;
   padding: 0;
-  box-sizing: border-box;
+  margin: 0;
+  color: #bbbbbb;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
 }
 
-.text {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  min-width: calc(100% - 42px);
-  min-height: 100%;
-  margin-left: 10px;
-  color: #e5e7eb;
-  white-space: pre;
-  outline: none;
-  font-family: monospace;
-  font-size: small;
-  line-height: 15px;
-  user-select: text;
-  cursor: text;
-}
-
-.currentLine {
-  background-color: #474778;
-}
-
-.lineNumberContainer {
-  margin-top: -30px;
-}
-
-.lineNr {
-  border-collapse: collapse;
-  border-right: 2px solid #555358;
-  min-width: 20px;
-  text-align: right;
-  padding-right: 3px;
-  margin-left: 3px;
-  color: #858388;
-  display: inline-block;
+contents {
+  display: block;
+  height: calc(93vh - 35px);
+  overflow-y: auto;
+  padding: 6px 0 40px 0;
+  background: #252526;
 }
 
 file,
 folder {
   width: 100%;
   display: block;
+  height: 24px;
+  line-height: 24px;
+  font-size: 13px;
   box-sizing: border-box;
 }
 
 folder {
   position: relative;
-  color: #e1e1e1;
-  padding-left: 7px;
+  font-weight: bolder;
+  color: #f4f4f4;
+  padding-left: 5px;
   padding-right: 25px;
 }
 
 file {
-  color: #a1a4a9;
-  padding-left: 7px;
+  color: #cccccc;
+  padding-left: 5px;
+}
+
+file:hover,
+folder:hover {
+  background: #2a2d2e;
 }
 
 .folderLabel {
@@ -244,50 +285,270 @@ file {
 }
 
 folder img {
-  height: 15px;
+  height: 13px;
   position: absolute;
   top: 50%;
   right: 8px;
   transform: translateY(-50%);
+  opacity: 0.75;
 }
 
-line{
-    width: 100%;
-    display: block;
-    margin-bottom: 5px;
-    border-bottom: 2px solid #555358;
-}
-
-contents{
-  display: block;
-  height: calc(93vh - 40px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-bottom: 40px;
+.line {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0;
   box-sizing: border-box;
 }
 
-.folderHeader {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  gap: 6px;
-  height: 40px;
-  width: 100%;
+.text {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 20px;
 }
 
-.folderHeader img {
-  position: absolute;
-  right: 15px;
-  height: 16px;
+/* C / C++ */
+file.ext-c span {
+  color: #519aba;
 }
 
-.folderName {
-  width: auto;
-  padding: 0;
-  margin: 0;
-  color: #b9bdc1;
-  font-size: 17px;
-  font-weight: 600;
+file.ext-cpp span,
+file.ext-cc span,
+file.ext-cxx span {
+  color: #519aba;
+}
+
+file.ext-h span,
+file.ext-hpp span,
+file.ext-hh span,
+file.ext-hxx span {
+  color: #b392f0;
+}
+
+/* Web */
+file.ext-html span,
+file.ext-htm span {
+  color: #e37933;
+}
+
+file.ext-css span {
+  color: #42a5f5;
+}
+
+file.ext-scss span,
+file.ext-sass span,
+file.ext-less span {
+  color: #c678dd;
+}
+
+file.ext-js span,
+file.ext-mjs span,
+file.ext-cjs span {
+  color: #d7ba7d;
+}
+
+file.ext-ts span,
+file.ext-tsx span {
+  color: #3178c6;
+}
+
+file.ext-jsx span {
+  color: #61afef;
+}
+
+file.ext-php span {
+  color: #a074c4;
+}
+
+/* Data / config */
+file.ext-json span,
+file.ext-jsonc span {
+  color: #d7ba7d;
+}
+
+file.ext-xml span {
+  color: #e5a167;
+}
+
+file.ext-yml span,
+file.ext-yaml span {
+  color: #98c379;
+}
+
+file.ext-toml span {
+  color: #d19a66;
+}
+
+file.ext-ini span,
+file.ext-cnf span,
+file.ext-conf span,
+file.ext-config span,
+file.ext-env span {
+  color: #c678dd;
+}
+
+file.ext-lock span {
+  color: #6a737d;
+}
+
+/* Docs */
+file.ext-md span,
+file.ext-markdown span {
+  color: #61afef;
+}
+
+file.ext-txt span,
+file.ext-log span {
+  color: #abb2bf;
+}
+
+file.ext-pdf span {
+  color: #e06c75;
+}
+
+file.ext-doc span,
+file.ext-docx span {
+  color: #4b8bbe;
+}
+
+file.ext-xls span,
+file.ext-xlsx span,
+file.ext-csv span {
+  color: #6a9955;
+}
+
+/* Images */
+file.ext-png span,
+file.ext-jpg span,
+file.ext-jpeg span,
+file.ext-webp span,
+file.ext-gif span,
+file.ext-bmp span,
+file.ext-ico span {
+  color: #98c379;
+}
+
+file.ext-svg span {
+  color: #d19a66;
+}
+
+/* Fonts */
+file.ext-ttf span,
+file.ext-otf span,
+file.ext-woff span,
+file.ext-woff2 span {
+  color: #c9a66b;
+}
+
+/* Audio / video */
+file.ext-mp3 span,
+file.ext-wav span,
+file.ext-ogg span,
+file.ext-flac span {
+  color: #c678dd;
+}
+
+file.ext-mp4 span,
+file.ext-mkv span,
+file.ext-avi span,
+file.ext-mov span,
+file.ext-webm span {
+  color: #98c379;
+}
+
+/* Archives */
+file.ext-zip span,
+file.ext-rar span,
+file.ext-7z span,
+file.ext-tar span,
+file.ext-gz span {
+  color: #d7ba7d;
+}
+
+/* Executables / binaries */
+file.ext-exe span,
+file.ext-dll span,
+file.ext-lib span,
+file.ext-so span,
+file.ext-o span,
+file.ext-obj span,
+file.ext-bin span {
+  color: #be5046;
+}
+
+/* Languages */
+file.ext-py span {
+  color: #3572a5;
+}
+
+file.ext-java span {
+  color: #b07219;
+}
+
+file.ext-cs span {
+  color: #b392f0;
+}
+
+file.ext-rb span {
+  color: #cc342d;
+}
+
+file.ext-go span {
+  color: #00add8;
+}
+
+file.ext-rs span {
+  color: #dea584;
+}
+
+file.ext-lua span {
+  color: #5a4fcf;
+}
+
+file.ext-sh span,
+file.ext-bash span {
+  color: #89e051;
+}
+
+file.ext-bat span,
+file.ext-cmd span,
+file.ext-ps1 span {
+  color: #4ec9b0;
+}
+
+/* SQL / DB */
+file.ext-sql span,
+file.ext-db span,
+file.ext-sqlite span {
+  color: #dcdcaa;
+}
+
+/* Build / project */
+file.ext-make span,
+file.ext-cmake span {
+  color: #6a9955;
+}
+
+file.ext-vcxproj span,
+file.ext-sln span,
+file.ext-csproj span {
+  color: #b392f0;
+}
+
+/* Git / misc */
+file.ext-gitignore span,
+file.ext-gitattributes span {
+  color: #f14c28;
+}
+
+file.ext-none span {
+  color: #8b949e;
+}
+
+file[class*="ext-"] span {
+  filter: brightness(0.98) saturate(0.95);
+}
+
+file[class*="ext-"]:hover span {
+  filter: brightness(0.98) saturate(0.95);
 }

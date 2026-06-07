@@ -25,8 +25,15 @@ ws.addEventListener("open", () => {
 });
 
 ws.addEventListener("message", (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === "fileContents") {
+    const contents = decodeBase64Utf8(data.contents);
+    editor.setValue(contents);
+    return;
+  }
+
   let start = performance.now();
-  lastData = JSON.parse(event.data);
+  lastData = data;
   const project = document.querySelector("contents");
   project.innerHTML = "";
   renderItems(lastData, project, 0, allFoldersOpen);
@@ -42,19 +49,18 @@ function renderItems(items, parent, level, openAll = false) {
   });
 
   const levelColors = [
-    "#555358",
-    "#6C5CE7",
-    "#0984E3",
-    "#00B894",
-    "#FDCB6E",
-    "#E17055",
-    "#D63031",
-    "#E84393",
-    "#A29BFE",
-    "#00CEC9",
-    "#81ECEC",
-    "#FAB1A0",
-    "#B2BEC3"
+    "#333333",
+    "#424242",
+    "#4f4f4f",
+    "#5c5c5c",
+    "#6b6b6b",
+    "#7a7a7a",
+    "#898989",
+    "#989898",
+    "#a7a7a7",
+    "#b6b6b6",
+    "#c5c5c5",
+    "#d4d4d4"
   ];
 
   for (const item of items) {
@@ -64,6 +70,21 @@ function renderItems(items, parent, level, openAll = false) {
       Array.isArray(item.children) &&
       item.children.length > 0;
     const element = document.createElement(item.type);
+
+    if(item.type === "file") {
+      //const extension = item.name.split(".").pop().toLowerCase();
+      //element.classList.add(`ext-${extension}`);
+      element.setAttribute("path", item.path ?? "");
+      element.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const path = element.getAttribute("path");
+        ws.send(JSON.stringify({
+          operation: "getFileContents",
+          path: path
+        }));
+      });
+    }
 
     element.style.display = "block";
     element.style.position = "relative";
@@ -133,6 +154,7 @@ function renderItems(items, parent, level, openAll = false) {
 
 ws.addEventListener("error", (error) => {
   let errorMessage = error;
+  console.log("WS error: " + error);
 });
 
 ws.addEventListener("close", () => {

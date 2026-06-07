@@ -1,12 +1,15 @@
 #pragma once
-#include "mongoose.h"
-#include "./getContents.h"
 #include <iostream>
 #include <filesystem>
-#include "./JSONBuilder.h"
 #include <set>
 #include <map>
 #include <mutex>
+
+#include "mongoose.h"
+#include "./textTools.h"
+#include "./getContents.h"
+#include "./JSONBuilder.h"
+#include "./userOperations.h"
 
 static std::mutex changesMutex;
 static bool shouldSendUpdate = false;
@@ -78,7 +81,25 @@ void websocket_handler(mg_connection *c, int ev, void *ev_data)
     }
     else
     {
-      broadcast(c, msg);
+      char *operation = mg_json_get_str(mg_str_n(msg.data(), msg.size()), "$.operation");
+      char *path = mg_json_get_str(mg_str_n(msg.data(), msg.size()), "$.path");
+      std::string operationStr = operation;
+      std::filesystem::path relativePath = path;
+      if (operation != nullptr && path != nullptr)
+      {
+        if (operationStr == "getFileContents")
+        {
+          std::string contents = getFileContents(relativePath);
+
+          std::string response = "{";
+          response += "\"type\":\"fileContents\",";
+          response += "\"path\":\"" + escapeJSON(relativePath.generic_string()) + "\",";
+          response += "\"contents\":\"" + base64Encode(contents) + "\"";
+          response += "}";
+
+          mg_ws_send(c, response.c_str(), response.size(), WEBSOCKET_OP_TEXT);
+        }
+      }
     }
   }
 }

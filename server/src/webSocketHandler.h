@@ -90,10 +90,12 @@ void websocket_handler(mg_connection *c, int ev, void *ev_data)
         if (operationStr == "getFileContents")
         {
           std::string contents = getFileContents(relativePath);
+          std::string filename = relativePath.filename().string();
 
           std::string response = "{";
           response += "\"type\":\"fileContents\",";
           response += "\"path\":\"" + escapeJSON(relativePath.generic_string()) + "\",";
+          response += "\"fileName\":\"" + escapeJSON(filename) + "\",";
           response += "\"contents\":\"" + base64Encode(contents) + "\"";
           response += "}";
 

@@ -284,5 +284,3 @@ function setEditorLanguage(filename) {
     const language = detectLanguage(filename);
     monaco.editor.setModelLanguage(currentModel, language);
 }
-
-setEditorContent("no opened files yet")

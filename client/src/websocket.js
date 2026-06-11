@@ -44,7 +44,7 @@ ws.addEventListener("message", (event) => {
 
   if (data.type === "fileContents") {
     const contents = decodeBase64Utf8(data.contents);
-    editor.setValue(contents);
+    setEditorContent(contents, data.fileName, data.path);
     return;
   }
 
